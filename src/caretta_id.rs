@@ -206,6 +206,42 @@ impl CarettaId {
         ]
     }
 
+    /// Creates a `CarettaId` from a [`Duration`](std::time::Duration) based on decisecond precision.
+    ///
+    /// This method converts the given duration into deciseconds (0.1 second units)
+    /// and generates a `CarettaId` from it. The resulting 35-bit identifier can
+    /// represent approximately 109 years worth of deciseconds.
+    ///
+    /// # Timestamp Format
+    ///
+    /// The entire 35 bits are used to represent the timestamp in deciseconds,
+    /// allowing for chronological sorting while maintaining a compact 7-character
+    /// BASE32 representation.
+    ///
+    /// # Overflow Behavior
+    ///
+    /// If the duration exceeds the maximum representable value (2^35 deciseconds,
+    /// approximately 109 years), the timestamp will wrap around. This is generally
+    /// not a concern for personal applications within a human lifespan.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use caretta_id::*;
+    /// use std::time::Duration;
+    ///
+    /// # fn main() -> Result<(), Error> {
+    /// let duration = Duration::new(5, 730_023_852);
+    /// let id = CarettaId::from_duration(duration);
+    /// assert_eq!(id, CarettaId::from_u64(57)?);
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn from_duration(duration: core::time::Duration) -> Self {
+        let decisecs = duration.as_millis() / 100;
+        Self::from_u64_lossy(decisecs as u64)
+    }
+
     #[doc = crate::macros::doc_to_bytes!("big endian")]
     ///
     /// # Examples
@@ -466,6 +502,21 @@ impl CarettaId {
     /// ```
     pub fn from_le_bytes_compact_lossy(bytes: [u8; 5]) -> Self {
         Self::from_le_bytes_lossy([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], 0, 0, 0])
+    }
+
+    /// Wrapping (modular) subtraction. Computes `self - rhs`, wrapping around at the boundary of the type.
+    /// 
+    /// # Examples
+    /// ```
+    /// # use caretta_id::*;
+    /// # fn main() -> Result<(), Error> {
+    /// assert_eq!(CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(100)?), CarettaId::NIL);
+    /// assert_eq!(CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(101)?), CarettaId::MAX);
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub const fn wrapping_sub(self, rhs: Self) -> Self {
+        CarettaId::from_u64_lossy(self.to_u64().wrapping_sub(rhs.to_u64()))
     }
 }
 

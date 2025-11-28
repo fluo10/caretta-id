@@ -3,8 +3,7 @@
 //! For a language agnostic specification of the caretta-id format, see [SPECS.md](https://github.com/fluo10/caretta-id/blob/main/SPECS.md)
 //!
 //! # Quick Start
-#![cfg_attr(feature = "default", doc = "```rust")]
-#![cfg_attr(not(feature = "default"), doc = "```ignore")]
+//! ```rust
 //! use caretta_id::CarettaId;
 //!
 //! let id = CarettaId::random();
@@ -59,8 +58,7 @@
 //! - `redb`: `redb` integration
 //!
 //! # Examples
-#![cfg_attr(feature = "default", doc = "```rust")]
-#![cfg_attr(not(feature = "default"), doc = "```ignore")]
+//! ```rust
 //! use caretta_id::CarettaId;
 //! # fn main() -> Result<(), caretta_id::Error> {
 //! // Generate random caretta-id
@@ -110,6 +108,9 @@ mod macros;
 mod quadruple;
 mod single;
 mod triple;
+
+#[cfg(feature = "std")]
+mod std;
 
 #[cfg(feature = "arbitrary")]
 mod arbitrary;

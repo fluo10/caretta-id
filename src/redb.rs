@@ -2,7 +2,7 @@ use super::*;
 use ::redb::*;
 
 impl Key for CarettaId {
-    fn compare(data1: &[u8], data2: &[u8]) -> std::cmp::Ordering {
+    fn compare(data1: &[u8], data2: &[u8]) -> ::std::cmp::Ordering {
         <Self as Value>::from_bytes(data1).cmp(&<Self as Value>::from_bytes(data2))
     }
 }
