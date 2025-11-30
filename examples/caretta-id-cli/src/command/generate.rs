@@ -1,13 +1,13 @@
 use caretta_id::{CarettaId, CarettaIdD, CarettaIdQ, CarettaIdS, CarettaIdT};
 use clap::Args;
 
-use crate::cli::length_option::{LengthOption, LengthOptions};
+use crate::option::{LengthOption, LengthOptionArgs};
 
 #[derive(Args, Debug)]
-/// Generate random caretta-id
+/// (deprecated) Generate random caretta-id
 pub struct GenerateArgs {
     #[command(flatten)]
-    length: LengthOptions,
+    length: LengthOptionArgs,
 }
 
 impl GenerateArgs {

@@ -6,7 +6,7 @@ use clap::Args;
 #[derive(Args, Debug)]
 #[command(next_help_heading = "Length options", about = None, long_about = None)]
 #[group(multiple = false, required = false)]
-pub struct LengthOptions {
+pub struct LengthOptionArgs {
     /// [deprecated] Use CarettaIdS (Single-length Caretta ID)
     #[arg(short, long)]
     pub single: bool,
@@ -33,8 +33,8 @@ pub enum LengthOption {
     Quadruple,
 }
 
-impl From<LengthOptions> for LengthOption {
-    fn from(value: LengthOptions) -> Self {
+impl From<LengthOptionArgs> for LengthOption {
+    fn from(value: LengthOptionArgs) -> Self {
         match (value.single, value.double, value.triple, value.quadruple) {
             (true, false, false, false) => Self::Single,
             (false, true, false, false) => Self::Double,

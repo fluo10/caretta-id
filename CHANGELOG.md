@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2025-12-01
+
+### Added
+
+- Convertion from `core::time::Duration` and `std::time::SystemTime`
+- `wrapping_sub` function for handling negative duration.
+- (`caretta-id-cli`) Add `random` and `timestamp` subcommand.
+
+### Deprecated
+
+- (`caretta-id-cli`) `generate` subcommand.
+
 ## [0.9.1] - 2025-11-19
 
 - Fix errors about `no_std` and `serde` feature 
@@ -146,7 +158,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `encode`: encode integer to string
   - `decode`: to decode string to integer
 
-[Unreleased]: https://github.com/fluo10/caretta-id/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/fluo10/caretta-id/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/fluo10/caretta-id/compare/v0.9.1...v0.10.0
 [0.9.1]: https://github.com/fluo10/caretta-id/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/fluo10/caretta-id/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/fluo10/caretta-id/compare/v0.8.0...v0.8.1

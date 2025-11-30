@@ -10,47 +10,48 @@ cargo install caretta-id-cli
 ## Usage
 
 ```
-Reference tool to generate/encode/decode caretta-id, Multi-length Triplet ID
+Reference tool to generate/encode/decode caretta-id
 
 Usage: caretta-id-cli <COMMAND>
 
 Commands:
-  decode    Decode caretta-id string to integer
-  encode    Encode integer to caretta-id string
-  generate  Generate random caretta-id
-  help      Print this message or the help of the given subcommand(s)
+  decode     Decode caretta-id string to integer
+  encode     Encode integer to caretta-id string
+  generate   (deprecated) Generate random caretta-id
+  timestamp  Generate time-based caretta-id
+  random     Generate random caretta-id
+  help       Print this message or the help of the given subcommand(s)
 
 Options:
   -h, --help     Print help
   -V, --version  Print version
 ```
 
-```
-Length options:
-  -s, --single     Use CarettaIdS (Single-length Caretta ID)
-  -d, --double     Use CarettaIdD (Double-length Caretta ID)
-  -t, --triple     Use CarettaIdT (Triple-length Caretta ID)
-  -q, --quadruple  Use CarettaIdQ (Quadruple-length Caretta ID)
-```
-
 ### Generate new CarettaIdS
 
 ```
-$ caretta-id-cli generate --single
-abc
+$ caretta-id-cli random 
+123abcd
+```
+
+### Generate time-based CarettaId
+
+```
+$ caretta=id-cli timestamp --unix
+gdw0982
 ```
 
 ### Encode CarettaIdD
 
 ```
-$ caretta-id-cli encode --double 0
-000-000
+$ caretta-id-cli encode 0
+0000000
 ```
 
 ### Decode CarettaIdQ
 
 ```
-$ caretta-id-cli decode --quadruple 000-000-000-000
+$ caretta-id-cli decode 0000000
 0
 ```
 

@@ -3,14 +3,13 @@
 //! For a language agnostic specification of the caretta-id format, see [SPECS.md](https://github.com/fluo10/caretta-id/blob/main/SPECS.md)
 //!
 //! # Quick Start
-#![cfg_attr(feature = "default", doc = "```rust")]
-#![cfg_attr(not(feature = "default"), doc = "```ignore")]
+//! ```rust
 //! use caretta_id::CarettaId;
 //!
 //! let id = CarettaId::random();
 //! println!("{}", id); // e.g. "123abcd"
 //! ```
-//! 
+//!
 //! # Why caretta-id?
 //!
 //! Traditional identifier systems face challenges in distributed environments:
@@ -26,21 +25,21 @@
 //! Add this to your `Cargo.toml`:
 //! ```toml
 //! [dependencies]
-//! caretta-id = "0.9"
+//! caretta-id = "0.10.0"
 //!
 //! # With optional features
-//! caretta-id = { version = "0.9", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb"] }
+//! caretta-id = { version = "0.10.0", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb"] }
 //! ```
-//! 
+//!
 //! ## For no_std Environments
 //!
 //! This crate support `no_std`.
 //! For `no_std` environment, you'll need to disable default features.
 //! ```toml
 //! [dependencies]
-//! caretta-id = { version = "0.9", default-features = false }
+//! caretta-id = { version = "0.10.0", default-features = false }
 //! ```
-//! 
+//!
 //! # Features
 //!
 //! - **Human-friendly**: Easy to read, type, and communicate
@@ -59,8 +58,7 @@
 //! - `redb`: `redb` integration
 //!
 //! # Examples
-#![cfg_attr(feature = "default", doc = "```rust")]
-#![cfg_attr(not(feature = "default"), doc = "```ignore")]
+//! ```rust
 //! use caretta_id::CarettaId;
 //! # fn main() -> Result<(), caretta_id::Error> {
 //! // Generate random caretta-id
@@ -110,6 +108,9 @@ mod macros;
 mod quadruple;
 mod single;
 mod triple;
+
+#[cfg(feature = "std")]
+mod std;
 
 #[cfg(feature = "arbitrary")]
 mod arbitrary;
