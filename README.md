@@ -7,7 +7,6 @@ A human-friendly 7 characters identifier format (e.g. `123abcd`).
 For a language agnostic specification of the caretta-id format, see [SPECS.md](https://github.com/fluo10/caretta-id/blob/main/SPECS.md)
 
 ## Quick Start
-
 ```rust
 use caretta_id::CarettaId;
 
@@ -28,23 +27,21 @@ caretta-id bridges the gap between human readability and technical requirements.
 ## Installation
 
 Add this to your `Cargo.toml`:
-
 ```toml
 [dependencies]
-caretta-id = "0.9"
+caretta-id = "0.10.0"
 
 # With optional features
-caretta-id = { version = "0.9", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb"] }
+caretta-id = { version = "0.10.0", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb"] }
 ```
 
 ### For no_std Environments
 
 This crate support `no_std`.
 For `no_std` environment, you'll need to disable default features.
-
 ```toml
 [dependencies]
-caretta-id = { version = "0.9", default-features = false }
+caretta-id = { version = "0.10.0", default-features = false }
 ```
 
 ## Features
@@ -65,7 +62,6 @@ caretta-id = { version = "0.9", default-features = false }
 - `redb`: `redb` integration
 
 ## Examples
-
 ```rust
 use caretta_id::CarettaId;
 // Generate random caretta-id
