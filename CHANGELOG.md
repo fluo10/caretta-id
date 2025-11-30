@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Convertion from `core::time::Duration` and `std::time::SystemTime`
 - `wrapping_sub` function for handling negative duration.
+- (`caretta-id-cli`) Add `random` and `timestamp` subcommand.
+
+### Deprecated
+
+- (`caretta-id-cli`) `generate` subcommand.
 
 ## [0.9.1] - 2025-11-19
 

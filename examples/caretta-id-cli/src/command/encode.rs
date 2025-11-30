@@ -1,13 +1,13 @@
 use caretta_id::{CarettaId, CarettaIdD, CarettaIdQ, CarettaIdS, CarettaIdT};
 use clap::Args;
 
-use crate::cli::length_option::{LengthOption, LengthOptions};
+use crate::option::{LengthOption, LengthOptionArgs};
 
 /// Encode integer to caretta-id string.
 #[derive(Args, Debug)]
 pub struct EncodeArgs {
     #[command(flatten)]
-    length: LengthOptions,
+    length: LengthOptionArgs,
     value: u64,
 }
 

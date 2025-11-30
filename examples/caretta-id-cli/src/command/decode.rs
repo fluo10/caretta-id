@@ -1,14 +1,14 @@
 use caretta_id::{CarettaId, CarettaIdD, CarettaIdQ, CarettaIdS, CarettaIdT};
 use clap::Args;
 
-use crate::cli::length_option::{LengthOption, LengthOptions};
+use crate::option::{LengthOption, LengthOptionArgs};
 
 /// Decode caretta-id string to integer.
 #[derive(Args, Debug)]
 pub struct DecodeArgs {
     /// Forse to parse specified variants.
     #[command(flatten)]
-    length: LengthOptions,
+    length: LengthOptionArgs,
     /// Caretta id String
     ///
     /// Examples: "123" "456-789" "abc-def-ghj" "kmn-pqr-stv-wxy"
