@@ -9,7 +9,7 @@
 //! let id = CarettaId::random();
 //! println!("{}", id); // e.g. "123abcd"
 //! ```
-//! 
+//!
 //! # Why caretta-id?
 //!
 //! Traditional identifier systems face challenges in distributed environments:
@@ -30,7 +30,7 @@
 //! # With optional features
 //! caretta-id = { version = "0.10.0", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb"] }
 //! ```
-//! 
+//!
 //! ## For no_std Environments
 //!
 //! This crate support `no_std`.
@@ -39,7 +39,7 @@
 //! [dependencies]
 //! caretta-id = { version = "0.10.0", default-features = false }
 //! ```
-//! 
+//!
 //! # Features
 //!
 //! - **Human-friendly**: Easy to read, type, and communicate

@@ -1,10 +1,9 @@
-mod option;
 mod command;
+mod option;
 
 use clap::{Parser, Subcommand};
 
 use crate::command::{DecodeArgs, EncodeArgs, GenerateArgs, RandomCommandArgs, TimestampArgs};
-
 
 #[derive(Debug, Parser)]
 #[command(version, about, long_about, infer_subcommands = true)]
@@ -39,7 +38,6 @@ impl CliSubcommand {
         }
     }
 }
-
 
 fn main() {
     let args = Cli::parse();

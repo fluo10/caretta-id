@@ -13,13 +13,13 @@ pub struct BaseTimeOptionArgs {
     pub unix: bool,
 
     #[arg(short, long)]
-    pub base: Option<DateTime<Local>>
+    pub base: Option<DateTime<Local>>,
 }
 
 /// Enum parsed from BaseTimeOptionArgs.
 pub enum BaseTimeOption {
     Unix,
-    Base(DateTime<Local>)
+    Base(DateTime<Local>),
 }
 
 impl From<BaseTimeOptionArgs> for BaseTimeOption {
@@ -27,7 +27,7 @@ impl From<BaseTimeOptionArgs> for BaseTimeOption {
         match (value.unix, value.base) {
             (true, None) => Self::Unix,
             (false, Some(x)) => Self::Base(x),
-            _ => unreachable!()
-        } 
+            _ => unreachable!(),
+        }
     }
 }

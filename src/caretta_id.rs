@@ -505,13 +505,19 @@ impl CarettaId {
     }
 
     /// Wrapping (modular) subtraction. Computes `self - rhs`, wrapping around at the boundary of the type.
-    /// 
+    ///
     /// # Examples
     /// ```
     /// # use caretta_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// assert_eq!(CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(100)?), CarettaId::NIL);
-    /// assert_eq!(CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(101)?), CarettaId::MAX);
+    /// assert_eq!(
+    ///     CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(100)?),
+    ///     CarettaId::NIL
+    /// );
+    /// assert_eq!(
+    ///     CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(101)?),
+    ///     CarettaId::MAX
+    /// );
     /// # Ok(())
     /// # }
     /// ```

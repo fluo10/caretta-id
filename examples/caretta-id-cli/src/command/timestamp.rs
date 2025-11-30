@@ -9,16 +9,19 @@ use crate::option::{BaseTimeOption, BaseTimeOptionArgs};
 pub struct TimestampArgs {
     #[command(flatten)]
     base: BaseTimeOptionArgs,
-    timestamp: Option<DateTime<Local>>
+    timestamp: Option<DateTime<Local>>,
 }
 
 impl TimestampArgs {
     pub fn run(self) {
-        println!("{}", match (BaseTimeOption::from(self.base), self.timestamp) {
-            (BaseTimeOption::Unix, None) => CarettaId::now_unix(),
-            (BaseTimeOption::Unix, Some(x)) => CarettaId::from_timestamp_unix(x),
-            (BaseTimeOption::Base(x), None) => CarettaId::now_since(x),
-            (BaseTimeOption::Base(x), Some(y)) => CarettaId::from_timestamp_since(y, x),
-        });
+        println!(
+            "{}",
+            match (BaseTimeOption::from(self.base), self.timestamp) {
+                (BaseTimeOption::Unix, None) => CarettaId::now_unix(),
+                (BaseTimeOption::Unix, Some(x)) => CarettaId::from_timestamp_unix(x),
+                (BaseTimeOption::Base(x), None) => CarettaId::now_since(x),
+                (BaseTimeOption::Base(x), Some(y)) => CarettaId::from_timestamp_since(y, x),
+            }
+        );
     }
 }
