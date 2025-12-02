@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use sea_orm::TryFromU64;
 
 use super::CarettaId;
@@ -43,7 +45,7 @@ impl TryFromU64 for CarettaId {
         Self::try_from(n).map_err(|x| sea_orm::DbErr::TryIntoErr {
             from: stringify!(u64),
             into: stringify!(CarettaId),
-            source: Box::new(x),
+            source: Arc::new(x),
         })
     }
 }
