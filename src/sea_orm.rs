@@ -6,7 +6,7 @@ use super::CarettaId;
 
 impl From<CarettaId> for sea_orm::Value {
     fn from(value: CarettaId) -> Self {
-        sea_orm::sea_query::Value::BigUnsigned(Some(value.into()))
+        sea_orm::sea_query::Value::BigInt(Some(value.to_u64() as i64))
     }
 }
 
@@ -15,28 +15,28 @@ impl sea_orm::TryGetable for CarettaId {
         res: &sea_orm::QueryResult,
         index: I,
     ) -> Result<Self, sea_orm::TryGetError> {
-        <u64 as sea_orm::TryGetable>::try_get_by(res, index).map(|x| CarettaId::from_u64_lossy(x))
+        <i64 as sea_orm::TryGetable>::try_get_by(res, index).map(|x| CarettaId::from_u64_lossy(x.unsigned_abs()))
     }
 }
 
 impl sea_orm::sea_query::ValueType for CarettaId {
     fn try_from(v: sea_orm::Value) -> Result<Self, sea_orm::sea_query::ValueTypeErr> {
-        <u64 as sea_orm::sea_query::ValueType>::try_from(v).map(|x| CarettaId::from_u64_lossy(x))
+        <i64 as sea_orm::sea_query::ValueType>::try_from(v).map(|x| CarettaId::from_u64_lossy(x.unsigned_abs()))
     }
     fn type_name() -> String {
         stringify!(CarettaId).to_owned()
     }
     fn array_type() -> sea_orm::sea_query::ArrayType {
-        sea_orm::sea_query::ArrayType::BigUnsigned
+        sea_orm::sea_query::ArrayType::BigInt
     }
     fn column_type() -> sea_orm::ColumnType {
-        sea_orm::sea_query::ColumnType::BigUnsigned
+        sea_orm::sea_query::ColumnType::BigInteger
     }
 }
 
 impl sea_orm::sea_query::Nullable for CarettaId {
     fn null() -> sea_orm::Value {
-        <u64 as sea_orm::sea_query::Nullable>::null()
+        <i64 as sea_orm::sea_query::Nullable>::null()
     }
 }
 
