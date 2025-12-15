@@ -60,7 +60,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/fluo10/caretta-id"
 homepage = "https://github.com/fluo10/caretta-id"
 keywords = ["id", "identifier", "uuid", "distributed", "human-readable"]
-version = "0.11.0-rc.1"
+version = "0.11.0-rc.2"
 
 [workspace.dependencies]
 chrono = "0.4.42"
