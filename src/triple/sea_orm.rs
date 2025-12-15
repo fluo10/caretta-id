@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use super::CarettaIdT;
 
 impl From<CarettaIdT> for sea_orm::Value {
@@ -16,7 +18,7 @@ impl sea_orm::TryGetable for CarettaIdT {
                 sea_orm::TryGetError::DbErr(sea_orm::DbErr::TryIntoErr {
                     from: stringify!(u64),
                     into: stringify!(CarettaIdT),
-                    source: Box::new(e),
+                    source: Arc::new(e),
                 })
             }),
             Err(x) => Err(x),

@@ -130,6 +130,9 @@ mod redb;
 #[cfg(feature = "rusqlite")]
 mod rusqlite;
 
+#[cfg(feature = "schemars")]
+mod schemars;
+
 #[cfg(feature = "sea-orm")]
 mod sea_orm;
 
