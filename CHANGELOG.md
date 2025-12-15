@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `schemars` feature
+
 ### Changed
 
 - Bump `sea-rom` to `v2.0.0`
-- Replace sea-orm's column type from `u64` to `i64` for support sqlite 
+- Replace sea-orm's column type from `u64` to `i64` for support sqlite
 
 ## [0.10.0] - 2025-12-01
 
