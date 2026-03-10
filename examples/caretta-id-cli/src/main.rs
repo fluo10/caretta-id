@@ -3,7 +3,7 @@ mod option;
 
 use clap::{Parser, Subcommand};
 
-use crate::command::{DecodeArgs, EncodeArgs, GenerateArgs, RandomCommandArgs, TimestampArgs};
+use crate::command::{DecodeArgs, EncodeArgs, RandomCommandArgs, TimestampArgs};
 
 #[derive(Debug, Parser)]
 #[command(version, about, long_about, infer_subcommands = true)]
@@ -22,7 +22,6 @@ impl Cli {
 pub enum CliSubcommand {
     Decode(DecodeArgs),
     Encode(EncodeArgs),
-    Generate(GenerateArgs),
     Timestamp(TimestampArgs),
     Random(RandomCommandArgs),
 }
@@ -32,7 +31,6 @@ impl CliSubcommand {
         match self {
             CliSubcommand::Decode(decode_args) => decode_args.run(),
             CliSubcommand::Encode(encode_args) => encode_args.run(),
-            CliSubcommand::Generate(generate_args) => generate_args.run(),
             CliSubcommand::Timestamp(timestamp_args) => timestamp_args.run(),
             CliSubcommand::Random(random_command_args) => random_command_args.run(),
         }

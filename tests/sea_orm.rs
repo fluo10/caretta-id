@@ -1,9 +1,7 @@
 #![cfg(feature = "sea-orm")]
 
-use std::u32;
-
-use caretta_id::{CarettaId, CarettaIdD, CarettaIdS, CarettaIdT};
-use rand::Rng;
+use caretta_id::CarettaId;
+use rand::RngExt as _;
 use sea_orm::{
     DatabaseBackend, MockDatabase, MockExecResult, Transaction,
     entity::{prelude::*, *},
