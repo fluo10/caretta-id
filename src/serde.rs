@@ -28,7 +28,7 @@ impl<'de> Deserialize<'de> for CarettaId {
         if deserializer.is_human_readable() {
             #[cfg(feature = "std")]
             {
-                (&<String as Deserialize>::deserialize(deserializer)?)
+                <String as Deserialize>::deserialize(deserializer)?
                     .parse::<CarettaId>()
                     .map_err(D::Error::custom)
             }

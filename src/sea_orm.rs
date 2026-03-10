@@ -13,13 +13,13 @@ impl sea_orm::TryGetable for CarettaId {
         res: &sea_orm::QueryResult,
         index: I,
     ) -> Result<Self, sea_orm::TryGetError> {
-        <u64 as sea_orm::TryGetable>::try_get_by(res, index).map(|x| CarettaId::from_u64_lossy(x))
+        <u64 as sea_orm::TryGetable>::try_get_by(res, index).map(CarettaId::from_u64_lossy)
     }
 }
 
 impl sea_orm::sea_query::ValueType for CarettaId {
     fn try_from(v: sea_orm::Value) -> Result<Self, sea_orm::sea_query::ValueTypeErr> {
-        <u64 as sea_orm::sea_query::ValueType>::try_from(v).map(|x| CarettaId::from_u64_lossy(x))
+        <u64 as sea_orm::sea_query::ValueType>::try_from(v).map(CarettaId::from_u64_lossy)
     }
     fn type_name() -> String {
         stringify!(CarettaId).to_owned()

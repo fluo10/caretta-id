@@ -4,7 +4,9 @@ use caretta_id::CarettaId;
 use schemars::{JsonSchema, SchemaGenerator, generate::SchemaSettings};
 
 fn validate_jsonschema(id: CarettaId) {
-    let schema = serde_json::Value::from(CarettaId::json_schema(&mut SchemaGenerator::new(SchemaSettings::openapi3())));
+    let schema = serde_json::Value::from(CarettaId::json_schema(&mut SchemaGenerator::new(
+        SchemaSettings::openapi3(),
+    )));
     let instance = serde_json::to_value(id).unwrap();
 
     jsonschema::validate(&schema, &instance).unwrap();

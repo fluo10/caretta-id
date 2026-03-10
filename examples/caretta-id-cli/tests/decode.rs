@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 use std::process::Command;
 
-use caretta_id::{CarettaId};
+use caretta_id::CarettaId;
 
 fn assert_decode(id: CarettaId) {
     let path = PathBuf::from(std::env!("CARGO_BIN_EXE_caretta-id-cli"));
