@@ -1,6 +1,7 @@
 use super::*;
 use ::rand::{
-    Rng, RngExt as _, distr::{Distribution, StandardUniform}
+    Rng, RngExt as _,
+    distr::{Distribution, StandardUniform},
 };
 
 impl Distribution<CarettaId> for StandardUniform {
