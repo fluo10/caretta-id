@@ -5,9 +5,23 @@ All notable changes to this workspace will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
 
-## [0.10.0] - 2025-12-01
+## 0.11.0 - 2026-03-11
+
+### Changed
+
+- Bump versions of dependencies
+
+### Removed
+
+- Deprecated old caretta id format
+  - `CarettaIdS`
+  - `CarettaIdD`
+  - `CarettaIdT`
+  - `CarettaIdQ`
+
+## 0.10.0 - 2025-12-01
 
 ### Added
 
@@ -19,11 +33,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - (`caretta-id-cli`) `generate` subcommand.
 
-## [0.9.1] - 2025-11-19
+## 0.9.1 - 2025-11-19
 
 - Fix errors about `no_std` and `serde` feature 
 
-## [0.9.0] - 2025-11-19
+## 0.9.0 - 2025-11-19
 
 ### Changed
 
@@ -34,13 +48,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Tests for deprecated triplet-based IDs
 
-## [0.8.1] - 2025-11-18
+## 0.8.1 - 2025-11-18
 
 ### Added
 
 - bytes conversion
 
-## [0.8.0] - 2025-11-16
+## 0.8.0 - 2025-11-16
 
 ### Added
 
@@ -53,7 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `CarettaIdT`
   - `CarettaIdQ`
 
-## [0.7.0] - 2025-11-14
+## 0.7.0 - 2025-11-14
 
 ### Added
 
@@ -63,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Rename `mtid` to `caretta-id`**
 
-## [0.6.0] - 2025-10-21
+## 0.6.0 - 2025-10-21
 
 ### Added
 
@@ -74,21 +88,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename `from_int_lossy` to `from_uint_lossy`
 - Move protobuf conversion implemention to each mtid's submodule.
 
-## [0.5.0] - 2025-10-20
+## 0.5.0 - 2025-10-20
 
 ### Changed
 
 - Split protobuf definitions to [submodule](https://github.com/fluo10/mtid-proto).
 - Fix field name of protobuf difinitions from `id` to `value`
 
-## [0.4.0] - 2025-10-19
+## 0.4.0 - 2025-10-19
 
 ### Changed
 
 - Refactor internal module structure.
 - Rename `prost` module to `proto`
 
-## [0.3.0] - 2025-10-18
+## 0.3.0 - 2025-10-18
 
 ### Added
 
@@ -101,7 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (`mtid-cli`) Length options become required.
 - Rewrite internal character decoding function.
 
-## [0.2.1] - 2025-10-16
+## 0.2.1 - 2025-10-16
 
 ### Added
 - Document on docs.rs now contains all features with labels.
@@ -113,7 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Unnecessary files like `.gitignore`, `.vscode` and `.github` are removed from published package.
 
-## [0.2.0] - 2025-10-15
+## 0.2.0 - 2025-10-15
 
 ### Added
 
@@ -136,7 +150,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Dependency on `thiserror` crate
 
-## [0.1.0] - 2025-10-13
+## 0.1.0 - 2025-10-13
 
 ### Added
 
@@ -157,18 +171,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `generate`: generate random id
   - `encode`: encode integer to string
   - `decode`: to decode string to integer
-
-[Unreleased]: https://github.com/fluo10/caretta-id/compare/v0.10.0...HEAD
-[0.10.0]: https://github.com/fluo10/caretta-id/compare/v0.9.1...v0.10.0
-[0.9.1]: https://github.com/fluo10/caretta-id/compare/v0.9.0...v0.9.1
-[0.9.0]: https://github.com/fluo10/caretta-id/compare/v0.8.1...v0.9.0
-[0.8.1]: https://github.com/fluo10/caretta-id/compare/v0.8.0...v0.8.1
-[0.8.0]: https://github.com/fluo10/caretta-id/compare/v0.7.0...v0.8.0
-[0.7.0]: https://github.com/fluo10/caretta-id/compare/v0.6.0...v0.7.0
-[0.6.0]: https://github.com/fluo10/caretta-id/compare/v0.5.0...v0.6.0
-[0.5.0]: https://github.com/fluo10/caretta-id/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/fluo10/caretta-id/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/fluo10/caretta-id/compare/v0.2.1...v0.3.0
-[0.2.1]: https://github.com/fluo10/caretta-id/compare/v0.2.0...v0.2.1
-[0.2.0]: https://github.com/fluo10/caretta-id/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/fluo10/caretta-id/releases/tag/v0.1.0
