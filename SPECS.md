@@ -1,117 +1,119 @@
-# caretta-id Specification (Multi-length Triplet ID)
+# caretta-id Specification
 
 ## Overview
 
-caretta-id is a human-friendly unique identifier format designed for readability, memorability, and compactness. It encodes integer values into a string representation using 3-character blocks, with multiple fixed-length variants available. caretta-id is suitable for use in distributed system, logging, URLs, and other contexts where short, unique identifiers are beneficial.
+caretta-id is a human-friendly unique identifier format designed for readability, memorability, and compactness. It encodes integer values into a 7-character string using a custom BASE32 encoding. caretta-id is suitable for use in distributed systems, logging, URLs, and other contexts where short, unique identifiers are beneficial.
 
 ### Motivation
-When I considering implementing IDs for users(not for internal system) to specify items, such as GitHub commit hashes or issue numbers in the distributed system using P2P, the following issues arose.
 
-- Sequential numbers like Git issues are difficult to implement in distributed systems because collitions are unavoidable.
-- Exists random number like UUID is too long for users
-- Short random number like 7-digit commit hash seems good but it is not standardized specification.
+When considering implementing IDs for users (not for internal systems) to specify items, such as GitHub commit hashes or issue numbers in a distributed system using P2P, the following issues arose.
 
-So I decided to make my own ID specifications.
+- Sequential numbers like Git issues are difficult to implement in distributed systems because collisions are unavoidable.
+- Existing random identifiers like UUID are too long for users.
+- Short random numbers like 7-digit commit hashes seem good but they are not standardized specifications.
+
+So I decided to make my own ID specification.
 
 ## Structure
 
-Each caretta-id consists of one or more 3-character blocks separated by hyphens(`-`). Each block encode a portion of the underlying integer value using a custom base encoding.
+A caretta-id consists of exactly 7 characters encoded with a custom BASE32 alphabet.
 
-### Block Format
+### Format
 
-- Each block contains exactly 3 characters.
-- Characters are selected from a custom base alphabet (see Encoding section).
-- Blocks are ordered from most significant to least significant.
+- Exactly 7 characters, no separators.
+- Characters are selected from a custom BASE32 alphabet (see Encoding section).
+- Characters are ordered from most significant to least significant.
+
+### Why 7 Characters?
+
+7 characters was chosen for the following reasons:
+
+- Git's short commit IDs conventionally use 7 characters, making the length familiar to developers.
+- 7 BASE32 characters encode 35 bits, which provides approximately 1090 years of range at Unix second precision, or approximately 109 years at decisecond (0.1s) precision. Decisecond precision is sufficient for uniqueness in personal-use applications, and a range exceeding 100 years before wrap-around is adequate for the vast majority of users. (And if it does wrap around, that would be quite the occasion.)
 
 ### Examples
 
-- `123` (Single block)
-- `456-789` (Double block)
-- `abc-def-ghj` (Triple block)
-- `jkm-npq-rst-uwx` (Quadruple block)
+- `0000000`
+- `123abcd`
+- `zzzzzzz`
 
 ## Encoding/Decoding
 
-caretta-id uses a custom base encoding/decoding to convert integer value into/from character blocks.
+caretta-id uses a custom BASE32 encoding/decoding to convert integer values into/from character strings.
 
 ### Alphabet
-- Based on BASE32.
-- In encoding, visually ambiguous characters: `I`, `L`, `O` and `V` are excluded.
-- In decoding, visually ambiguous characters works as alias of valid character.
 
+- Based on [Crockford's Base32](https://www.crockford.com/base32.html).
+- In encoding, visually ambiguous characters `i`, `l`, `o`, and `u` are excluded.
+- In decoding, visually ambiguous characters work as aliases of their canonical character.
 
-| value | Encode Digit | Decode Digit
-|------:|:------------:|:------------:
-|     0 |            0 |        0 o O
-|     1 |            1 |    1 i I l L
-|     2 |            2 |            2
-|     3 |            3 |            3
-|     4 |            4 |            4
-|     5 |            5 |            5
-|     6 |            6 |            6
-|     7 |            7 |            7
-|     8 |            8 |            8
-|     9 |            9 |            9
-|    10 |            a |          a A
-|    11 |            b |          b B
-|    12 |            c |          c C
-|    13 |            d |          d D
-|    14 |            e |          e E
-|    15 |            f |          f F
-|    16 |            g |          g G
-|    17 |            h |          h H
-|    18 |            j |          j J
-|    19 |            k |          k K
-|    20 |            m |          m M
-|    21 |            n |          n N
-|    22 |            p |          p P
-|    23 |            q |          q Q
-|    24 |            r |          r R
-|    25 |            s |          s S
-|    26 |            t |          t T
-|    27 |            u |      u U v V
-|    28 |            w |          w W
-|    29 |            x |          x X
-|    30 |            y |          y Y
-|    31 |            z |          z Z
+| value | Encode | Decode aliases     |
+|------:|:------:|:------------------:|
+|     0 |      0 | 0, o, O            |
+|     1 |      1 | 1, i, I, l, L      |
+|     2 |      2 | 2                  |
+|     3 |      3 | 3                  |
+|     4 |      4 | 4                  |
+|     5 |      5 | 5                  |
+|     6 |      6 | 6                  |
+|     7 |      7 | 7                  |
+|     8 |      8 | 8                  |
+|     9 |      9 | 9                  |
+|    10 |      a | a, A               |
+|    11 |      b | b, B               |
+|    12 |      c | c, C               |
+|    13 |      d | d, D               |
+|    14 |      e | e, E               |
+|    15 |      f | f, F               |
+|    16 |      g | g, G               |
+|    17 |      h | h, H               |
+|    18 |      j | j, J               |
+|    19 |      k | k, K               |
+|    20 |      m | m, M               |
+|    21 |      n | n, N               |
+|    22 |      p | p, P               |
+|    23 |      q | q, Q               |
+|    24 |      r | r, R               |
+|    25 |      s | s, S               |
+|    26 |      t | t, T               |
+|    27 |      v | v, V, u, U         |
+|    28 |      w | w, W               |
+|    29 |      x | x, X               |
+|    30 |      y | y, Y               |
+|    31 |      z | z, Z               |
 
 ### Bit Width
-- Each character encode approximately 5 bits(BASE32).
-- Each 3-character block encodes 15 bits.
-- Double block caretta-id encodes 45 bits of entropy
+
+- Each character encodes exactly 5 bits (BASE32).
+- 7 characters encode 35 bits.
+- Maximum representable value: 2^35 - 1 = 34,359,738,367
 
 ### Encoding Process
-1. Split integer value by 15 bits.
-1. Convert 15 bits integer value to BASE32 representation 3-character blocks.
-3. Insert hyphens between blocks.
 
-## Variants
+1. Mask the integer value to 35 bits.
+2. Extract each of the 7 five-bit groups from most significant to least significant.
+3. Map each 5-bit value to the corresponding character in the encode alphabet.
 
-caretta-id supports multiple fixed-length variants:
+### Decoding Process
 
-| Name                                       | Format            | Bit Width |
-|:-------------------------------------------|:------------------|----------:|
-| `CarettaIdS` (Single length Caretta ID)    | `abc`             | 15 bits
-| `CarettaIdD` (Double length Caretta ID)    | `abc-def`         | 30 bits
-| `CarettaIdT` (Triple length Caretta ID)    | `abc-def-ghj`     | 45 bits
-| `CarettaIdQ` (Quadruple length Caretta ID) | `abc-def-ghj-kmn` | 60 bits
+1. Verify the string is exactly 7 characters.
+2. Map each character to its 5-bit value using the decode alias table.
+3. Combine the 7 five-bit values into a 35-bit integer.
 
 ## Examples
 
-|Integer                      | CarettaIdS | CarettaIdD | CarettaIdT    | CarettaIdQ        |
-|----------------------------:|:----------:|:----------:|:-------------:|:-----------------:|
-|                         `0` | `000`      | `000-000`  | `000-000-000` | `000-000-000-000` |
-|                    `32_767` | `zzz`      | `000-zzz`  | `000-000-zzz` | `000-000-000-zzz` |
-|             `1_073_741_823` | `-`        | `zzz-zzz`  | `000-zzz-zzz` | `000-000-zzz-zzz` |
-|        `35_184_372_088_831` | `-`        | `-`        | `zzz-zzz-zzz` | `000-zzz-zzz-zzz` |
-| `1_152_921_504_606_846_975` | `-`        | `-`        | `-`           | `zzz-zzz-zzz-zzz` |
+| Integer         | caretta-id  |
+|----------------:|:-----------:|
+|             `0` | `0000000`   |
+|           `255` | `000007z`   |
+|   `34359738367` | `zzzzzzz`   |
 
 ## Implementation Notes
 
 - caretta-id is language-agnostic and can be implemented in any language with integer and string manipulation capabilities.
-- Rust implemention provides `CarettaIdS`, `CarettaIdD`, `CarettaIdT` and `CarettaIdQ` structs with common conversion trait.
-- Parsing and formatting functions should validate character sets and block length.
-- Lossy conversion from oversized interger is allowed. In this case, higher bits should be lost.
+- The Rust implementation provides a `CarettaId` struct backed by a `u64` with common conversion traits.
+- Parsing and formatting functions should validate character set and string length.
+- Lossy conversion from oversized integers is allowed. In this case, higher bits are discarded (modulo 2^35).
 
 ## License
 
