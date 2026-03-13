@@ -25,10 +25,10 @@
 //! Add this to your `Cargo.toml`:
 //! ```toml
 //! [dependencies]
-//! caretta-id = "0.10.0"
+//! caretta-id = "0.11.0"
 //!
 //! # With optional features
-//! caretta-id = { version = "0.10.0", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb"] }
+//! caretta-id = { version = "0.11.0", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb", "schemars"] }
 //! ```
 //!
 //! ## For no_std Environments
@@ -37,7 +37,7 @@
 //! For `no_std` environment, you'll need to disable default features.
 //! ```toml
 //! [dependencies]
-//! caretta-id = { version = "0.10.0", default-features = false }
+//! caretta-id = { version = "0.11.0", default-features = false }
 //! ```
 //!
 //! # Features
@@ -53,9 +53,10 @@
 //! - `arbitrary`: `arbitrary::Arbitrary` support for fuzzing tests.
 //! - `serde`: Serialization/deserialization support
 //! - `rusqlite`: SQLite database integration
-//! - `sea-orm`: SeaORM ORM integration  
+//! - `sea-orm`: SeaORM ORM integration
 //! - `prost`: Protocol Buffers support
 //! - `redb`: `redb` integration
+//! - `schemars`: JSON Schema support
 //!
 //! # Examples
 //! ```rust
