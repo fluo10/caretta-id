@@ -32,7 +32,7 @@ arbitrary = { version = "1", optional = true }
 prost = { workspace = true, optional = true }
 rand = { workspace = true, default-features = false, optional = true }
 redb = { version = "3.1.0", optional = true }
-rusqlite = { version = "0.37.0", default-features = false, optional = true }
+rusqlite = { version = "0.39.0", default-features = false, optional = true }
 schemars = { version = "1.2.1", default-features = false, optional = true }
 sea-orm = { version = "1.1.16", default-features = false, optional = true }
 serde = { version = "1.0.219", default-features = false,  optional = true }
@@ -48,7 +48,7 @@ serde = { version = "1.0.219", default-features = false, features = ["derive"]}
 sea-orm = { version = "1.1.16", default-features = false, features = ["macros", "mock"]}
 tokio = { version = "1.47.1", default-features = false, features = ["macros", "rt"] }
 rand = { workspace = true, default-features = false, features = ["thread_rng"]}
-jsonschema = "0.37"
+jsonschema = "0.45"
 serde_json = "1.0"
 
 [workspace]
