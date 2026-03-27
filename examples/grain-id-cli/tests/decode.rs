@@ -1,10 +1,10 @@
 use std::path::PathBuf;
 use std::process::Command;
 
-use caretta_id::CarettaId;
+use grain_id::GrainId;
 
-fn assert_decode(id: CarettaId) {
-    let path = PathBuf::from(std::env!("CARGO_BIN_EXE_caretta-id-cli"));
+fn assert_decode(id: GrainId) {
+    let path = PathBuf::from(std::env!("CARGO_BIN_EXE_grain-id-cli"));
     let output = Command::new(path)
         .arg("decode")
         .arg(&id.to_string())
@@ -16,15 +16,15 @@ fn assert_decode(id: CarettaId) {
 
 #[test]
 fn nil() {
-    assert_decode(CarettaId::NIL);
+    assert_decode(GrainId::NIL);
 }
 
 #[test]
 fn max() {
-    assert_decode(CarettaId::MAX);
+    assert_decode(GrainId::MAX);
 }
 
 #[test]
 fn random() {
-    assert_decode(CarettaId::random());
+    assert_decode(GrainId::random());
 }

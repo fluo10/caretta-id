@@ -1,4 +1,4 @@
-/// A general error that can occur when working with caretta-ids.
+/// A general error that can occur when working with grain-ids.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, thiserror::Error)]
 pub enum Error {
     #[error("Invalid value, expected under , found {0}")]

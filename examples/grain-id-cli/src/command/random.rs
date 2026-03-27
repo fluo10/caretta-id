@@ -1,12 +1,12 @@
-use caretta_id::CarettaId;
+use grain_id::GrainId;
 use clap::Args;
 
 #[derive(Args, Debug)]
-/// Generate random caretta-id
+/// Generate random grain-id
 pub struct RandomCommandArgs;
 
 impl RandomCommandArgs {
     pub fn run(self) {
-        println!("{}", rand::random::<CarettaId>())
+        println!("{}", rand::random::<GrainId>())
     }
 }

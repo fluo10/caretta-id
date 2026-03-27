@@ -1,7 +1,7 @@
 use super::*;
 use ::serde::{Deserialize, Serialize, de::Error};
 
-impl Serialize for CarettaId {
+impl Serialize for GrainId {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: ::serde::Serializer,
@@ -20,7 +20,7 @@ impl Serialize for CarettaId {
     }
 }
 
-impl<'de> Deserialize<'de> for CarettaId {
+impl<'de> Deserialize<'de> for GrainId {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: ::serde::Deserializer<'de>,
@@ -29,18 +29,18 @@ impl<'de> Deserialize<'de> for CarettaId {
             #[cfg(feature = "std")]
             {
                 <String as Deserialize>::deserialize(deserializer)?
-                    .parse::<CarettaId>()
+                    .parse::<GrainId>()
                     .map_err(D::Error::custom)
             }
             #[cfg(not(feature = "std"))]
             {
                 (<&str as Deserialize>::deserialize(deserializer)?)
-                    .parse::<CarettaId>()
+                    .parse::<GrainId>()
                     .map_err(D::Error::custom)
             }
         } else {
             let i = u64::deserialize(deserializer)?;
-            CarettaId::from_u64(i).map_err(D::Error::custom)
+            GrainId::from_u64(i).map_err(D::Error::custom)
         }
     }
 }

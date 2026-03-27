@@ -1,7 +1,7 @@
 [package]
-name = "caretta-id-cli"
+name = "grain-id-cli"
 edition.workspace = true
-description = "Reference tool to generate/encode/decode caretta-id"
+description = "Reference tool to generate/encode/decode grain-id"
 categories = ["command-line-utilities"]
 license.workspace = true
 repository.workspace = true
@@ -14,5 +14,5 @@ readme = "README.md"
 anyhow = "1.0.100"
 chrono.workspace = true
 clap = { version = "4.5.48", features = ["derive"] }
-caretta-id = { path = "../..", version = "0.12.1" }
+grain-id = { path = "../..", version = "0.12.1" }
 rand.workspace = true

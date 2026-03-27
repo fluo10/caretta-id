@@ -1,8 +1,0 @@
-syntax = "proto3";
-package caretta_id_example;
-
-import "caretta_id/caretta_id.proto";
-
-message Example {
-    caretta_id.CarettaId CarettaId = 1;
-}

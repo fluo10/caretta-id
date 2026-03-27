@@ -1,20 +1,20 @@
-# caretta-id
+# grain-id
 
 <!-- cargo-rdme start -->
 
-A human-friendly 7 characters identifier format (e.g. `123abcd`).
+Compact, human-readable unique IDs — grain-sized, yet enough for a lifetime.
 
-For a language agnostic specification of the caretta-id format, see [SPECS.md](https://github.com/fluo10/caretta-id/blob/main/SPECS.md)
+For a language agnostic specification of the grain-id format, see [SPECS.md](https://github.com/fluo10/grain-id/blob/main/SPECS.md)
 
 ## Quick Start
 ```rust
-use caretta_id::CarettaId;
+use grain_id::GrainId;
 
-let id = CarettaId::random();
+let id = GrainId::random();
 println!("{}", id); // e.g. "123abcd"
 ```
 
-## Why caretta-id?
+## Why grain-id?
 
 Traditional identifier systems face challenges in distributed environments:
 
@@ -22,17 +22,17 @@ Traditional identifier systems face challenges in distributed environments:
 - **UUIDs** are too long and not human-friendly
 - **Short hashes** (like Git commit hashes) lack standardization
 
-caretta-id bridges the gap between human readability and technical requirements.
+grain-id bridges the gap between human readability and technical requirements.
 
 ## Installation
 
 Add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-caretta-id = "0.12.0"
+grain-id = "0.12.0"
 
 # With optional features
-caretta-id = { version = "0.11.0", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb", "schemars"] }
+grain-id = { version = "0.11.0", features = ["arbitrary", "serde", "rusqlite", "sea-orm", "prost", "redb", "schemars"] }
 ```
 
 ### For no_std Environments
@@ -41,7 +41,7 @@ This crate support `no_std`.
 For `no_std` environment, you'll need to disable default features.
 ```toml
 [dependencies]
-caretta-id = { version = "0.12.0", default-features = false }
+grain-id = { version = "0.12.0", default-features = false }
 ```
 
 ## Features
@@ -64,27 +64,27 @@ caretta-id = { version = "0.12.0", default-features = false }
 
 ## Examples
 ```rust
-use caretta_id::CarettaId;
-// Generate random caretta-id
-let caretta_id = CarettaId::random();
+use grain_id::GrainId;
+// Generate random grain-id
+let grain_id = GrainId::random();
 
 // e.g. `123abcd`
-println!("'{}'", caretta_id);
+println!("'{}'", grain_id);
 
 // Parse from string
-let valid_id: CarettaId = "012atvw".parse()?;
+let valid_id: GrainId = "012atvw".parse()?;
 
 // When decoding from BASE32, ambiguous characters (1/l/I, 0/o, v/u) are treated as 1, 0 and v respectively, so they do not cause errors.
-let also_valid_id: CarettaId = "ol2atuw".parse()?;
+let also_valid_id: GrainId = "ol2atuw".parse()?;
 assert_eq!(valid_id, also_valid_id);
 
 // Convert to/from integer
 let num: u64 = valid_id.into();
-let id_from_int: CarettaId = num.try_into()?;
+let id_from_int: GrainId = num.try_into()?;
 assert_eq!(valid_id, id_from_int);
 
 // Lossy conversion from oversized int is allowed.
-let id_from_overflowed_int = CarettaId::from_u64_lossy(CarettaId::CAPACITY + num);
+let id_from_overflowed_int = GrainId::from_u64_lossy(GrainId::CAPACITY + num);
 assert_eq!(valid_id, id_from_overflowed_int);
 
 ```

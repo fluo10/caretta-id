@@ -1,14 +1,13 @@
 [package]
-name = "caretta-id"
+name = "grain-id"
 edition.workspace = true
 version.workspace = true
-description = "Random human-friendly id for personal distributed system"
+description = "Compact, human-readable unique IDs — grain-sized, yet enough for a lifetime"
 categories = ["data-structures", "encoding", "no-std", "no-std::no-alloc"]
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
 keywords.workspace = true
-documentation = "https://docs.rs/caretta-id"
 readme = "README.md"
 exclude = ["/.github", "/.gitignore", "/.vscode", "/CHANGELOG.md", "/SPECS.md", "/.gitmodules", "/.rustfmt.toml"]
 
@@ -52,13 +51,13 @@ jsonschema = "0.45"
 serde_json = "1.0"
 
 [workspace]
-members = [".", "examples/caretta-id-cli", "examples/caretta-id-prost-example"]
+members = [".", "examples/grain-id-cli", "examples/grain-id-prost-example"]
 
 [workspace.package]
 edition = "2024"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/fluo10/caretta-id"
-homepage = "https://github.com/fluo10/caretta-id"
+repository = "https://github.com/fluo10/grain-id"
+homepage = "https://github.com/fluo10/grain-id"
 keywords = ["id", "identifier", "uuid", "distributed", "human-readable"]
 version = "0.12.1"
 

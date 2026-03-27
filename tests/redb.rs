@@ -2,7 +2,7 @@
 
 use std::sync::LazyLock;
 
-use caretta_id::CarettaId;
+use grain_id::GrainId;
 use redb::{Database, ReadableDatabase, TableDefinition, backends::InMemoryBackend};
 
 const DATABASE: LazyLock<redb::Database> = LazyLock::new(|| {
@@ -11,9 +11,9 @@ const DATABASE: LazyLock<redb::Database> = LazyLock::new(|| {
         .unwrap()
 });
 
-const TABLE: TableDefinition<CarettaId, CarettaId> = TableDefinition::new(stringify!($mod_name));
+const TABLE: TableDefinition<GrainId, GrainId> = TableDefinition::new(stringify!($mod_name));
 
-fn assert_insert(key: CarettaId, value: CarettaId) {
+fn assert_insert(key: GrainId, value: GrainId) {
     let database = DATABASE;
     {
         let write_txn = database.begin_write().unwrap();
@@ -33,15 +33,15 @@ fn assert_insert(key: CarettaId, value: CarettaId) {
 }
 #[test]
 fn nil() {
-    assert_insert(<CarettaId>::NIL, <CarettaId>::random());
+    assert_insert(<GrainId>::NIL, <GrainId>::random());
 }
 #[test]
 fn max() {
-    assert_insert(<CarettaId>::MAX, <CarettaId>::random());
+    assert_insert(<GrainId>::MAX, <GrainId>::random());
 }
 #[test]
 fn random() {
     for _ in 0..10 {
-        assert_insert(<CarettaId>::random(), <CarettaId>::random());
+        assert_insert(<GrainId>::random(), <GrainId>::random());
     }
 }

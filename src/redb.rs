@@ -1,13 +1,13 @@
 use super::*;
 use ::redb::*;
 
-impl Key for CarettaId {
+impl Key for GrainId {
     fn compare(data1: &[u8], data2: &[u8]) -> ::std::cmp::Ordering {
         <Self as Value>::from_bytes(data1).cmp(&<Self as Value>::from_bytes(data2))
     }
 }
 
-impl Value for CarettaId {
+impl Value for GrainId {
     type SelfType<'a> = Self;
     type AsBytes<'a> = <u64 as Value>::AsBytes<'a>;
     fn fixed_width() -> Option<usize> {
@@ -26,6 +26,6 @@ impl Value for CarettaId {
         <u64 as Value>::as_bytes(value.as_u64())
     }
     fn type_name() -> TypeName {
-        TypeName::new(stringify!(CarettaId))
+        TypeName::new(stringify!(GrainId))
     }
 }

@@ -5,38 +5,38 @@ use crate::{
     alphabet::{BASE, u5_to_char_lossy},
 };
 
-/// Caretta id struct
+/// Grain id struct
 ///
 /// # Examples
 #[cfg_attr(feature = "default", doc = "```rust")]
 #[cfg_attr(not(feature = "default"), doc = "```ignore")]
-/// # use caretta_id::*;
+/// # use grain_id::*;
 /// # fn main() -> Result<(), Error> {
 /// // Generate random value.
-/// let random = CarettaId::random();
+/// let random = GrainId::random();
 ///
-/// assert_ne!(random, CarettaId::NIL);
+/// assert_ne!(random, GrainId::NIL);
 ///
 /// // Parse from string.
-/// let from_str: CarettaId = "012abcd".parse()?;
+/// let from_str: GrainId = "012abcd".parse()?;
 ///
 /// // Parse from integer.
-/// let from_int: CarettaId = 35990925u64.try_into()?;
+/// let from_int: GrainId = 35990925u64.try_into()?;
 ///
 /// assert_eq!(from_str, from_int);
 /// # Ok(())
 /// # }
 /// ```
 #[derive(Copy, Clone, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
-pub struct CarettaId(u64);
+pub struct GrainId(u64);
 
-impl CarettaId {
+impl GrainId {
     /// The size of the integer type in bits.
     ///
     /// This is not equal actually stored size.
     pub const BITS: u32 = 35;
 
-    /// The capacity value of the caretta id
+    /// The capacity value of the grain id
     #[deprecated(since = "0.8.1")]
     pub const CAPACITY: u64 = (BASE as u64).pow(7);
 
@@ -47,45 +47,45 @@ impl CarettaId {
         Self(value)
     }
 
-    /// The smallest value that can be represented by [`CarettaId`].
+    /// The smallest value that can be represented by [`GrainId`].
     ///
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// assert_eq!(CarettaId::NIL, "0000000".parse::<CarettaId>()?);
-    /// assert_eq!(CarettaId::NIL, CarettaId::try_from(0)?);
+    /// assert_eq!(GrainId::NIL, "0000000".parse::<GrainId>()?);
+    /// assert_eq!(GrainId::NIL, GrainId::try_from(0)?);
     /// # Ok(())
     /// # }
     /// ```
     pub const NIL: Self = Self::from_u64_unchecked(0);
 
-    /// The largest value that can be represented by [`CarettaId`].
+    /// The largest value that can be represented by [`GrainId`].
     ///
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// assert_eq!(CarettaId::MAX, "zzzzzzz".parse::<CarettaId>()?);
+    /// assert_eq!(GrainId::MAX, "zzzzzzz".parse::<GrainId>()?);
     /// assert_eq!(
-    ///     CarettaId::MAX,
-    ///     CarettaId::try_from(CarettaId::CAPACITY - 1)?
+    ///     GrainId::MAX,
+    ///     GrainId::try_from(GrainId::CAPACITY - 1)?
     /// );
     /// # Ok(())
     /// # }
     /// ```
     pub const MAX: Self = Self::from_u64_unchecked(Self::MAX_VALUE);
 
-    /// Test if the [`CarettaId`] is nil.
+    /// Test if the [`GrainId`] is nil.
     ///
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// assert!("0000000".parse::<CarettaId>()?.is_nil());
+    /// assert!("0000000".parse::<GrainId>()?.is_nil());
     /// # Ok(())
     /// # }
     /// ```
@@ -93,14 +93,14 @@ impl CarettaId {
         self == &Self::NIL
     }
 
-    /// Test if the [`CarettaId`] is max.
+    /// Test if the [`GrainId`] is max.
     ///
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// assert!("zzzzzzz".parse::<CarettaId>()?.is_max());
+    /// assert!("zzzzzzz".parse::<GrainId>()?.is_max());
     /// # Ok(())
     /// # }
     /// ```
@@ -108,7 +108,7 @@ impl CarettaId {
         self == &Self::MAX
     }
 
-    /// "Converts an unsigned integer to [`CarettaId`] by truncating bits that exceed the valid range.")]
+    /// "Converts an unsigned integer to [`GrainId`] by truncating bits that exceed the valid range.")]
     ///
     /// This is a lossy conversion that masks the input value to fit within the ID's bit limit.
     /// If you need to detect out-of-range values, use [`TryFrom`] instead.
@@ -116,15 +116,15 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// // Values within range are preserved
     /// let valid_int = 123;
-    /// let id = CarettaId::from_u64_lossy(valid_int);
+    /// let id = GrainId::from_u64_lossy(valid_int);
     /// assert_eq!(u64::from(id), valid_int);
     ///
     /// // values exceeding 35 bits are truncated (MSB(s) dropped
-    /// let oversized_int = valid_int + CarettaId::CAPACITY;
-    /// let overflowed_id = CarettaId::from_u64_lossy(oversized_int);
+    /// let oversized_int = valid_int + GrainId::CAPACITY;
+    /// let overflowed_id = GrainId::from_u64_lossy(oversized_int);
     /// assert_ne!(u64::from(overflowed_id), oversized_int);
     /// // Only lower 35 bits retained
     /// assert_eq!(u64::from(overflowed_id), valid_int)
@@ -133,19 +133,19 @@ impl CarettaId {
         Self::from_u64_unchecked(int & Self::MAX_VALUE)
     }
 
-    /// Attempts to convert a [`u64`]  to [`CarettaId`].
+    /// Attempts to convert a [`u64`]  to [`GrainId`].
     ///
     ///
-    /// Return error if the value is larger than [`CarettaId::MAX`].
+    /// Return error if the value is larger than [`GrainId::MAX`].
     /// If you don't need to detect out-of-range values, use [`from_uint_lossy`](Self::from_uint_lossy).
     ///
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// assert_eq!(CarettaId::from_u64(0x7FFFFFFFF)?, CarettaId::MAX);
-    /// assert!(CarettaId::from_u64(0x800000000).is_err());
+    /// assert_eq!(GrainId::from_u64(0x7FFFFFFFF)?, GrainId::MAX);
+    /// assert!(GrainId::from_u64(0x800000000).is_err());
     /// # Ok(())
     /// # }
     /// ```
@@ -162,9 +162,9 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// let id = CarettaId::from_u64(0x123456789)?;
+    /// let id = GrainId::from_u64(0x123456789)?;
     /// assert_eq!(id.as_u64(), &0x123456789);
     /// # Ok(())
     /// # }
@@ -177,9 +177,9 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// let id = CarettaId::from_u64(0x123456789)?;
+    /// let id = GrainId::from_u64(0x123456789)?;
     /// assert_eq!(id.to_u64(), 0x123456789);
     /// # Ok(())
     /// # }
@@ -206,10 +206,10 @@ impl CarettaId {
         ]
     }
 
-    /// Creates a `CarettaId` from a [`Duration`](std::time::Duration) based on decisecond precision.
+    /// Creates a `GrainId` from a [`Duration`](std::time::Duration) based on decisecond precision.
     ///
     /// This method converts the given duration into deciseconds (0.1 second units)
-    /// and generates a `CarettaId` from it. The resulting 35-bit identifier can
+    /// and generates a `GrainId` from it. The resulting 35-bit identifier can
     /// represent approximately 109 years worth of deciseconds.
     ///
     /// # Timestamp Format
@@ -227,13 +227,13 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// use std::time::Duration;
     ///
     /// # fn main() -> Result<(), Error> {
     /// let duration = Duration::new(5, 730_023_852);
-    /// let id = CarettaId::from_duration(duration);
-    /// assert_eq!(id, CarettaId::from_u64(57)?);
+    /// let id = GrainId::from_duration(duration);
+    /// assert_eq!(id, GrainId::from_u64(57)?);
     /// # Ok(())
     /// # }
     /// ```
@@ -247,9 +247,9 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// let bytes = CarettaId::from_u64(0x123456789)?.to_be_bytes();
+    /// let bytes = GrainId::from_u64(0x123456789)?.to_be_bytes();
     /// assert_eq!(bytes, [0, 0, 0, 0x01, 0x23, 0x45, 0x67, 0x89]);
     /// # Ok(())
     /// # }
@@ -263,9 +263,9 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// let bytes = CarettaId::from_u64(0x123456789)?.to_le_bytes();
+    /// let bytes = GrainId::from_u64(0x123456789)?.to_le_bytes();
     /// assert_eq!(bytes, [0x89, 0x67, 0x45, 0x23, 0x01, 0, 0, 0]);
     /// # Ok(())
     /// # }
@@ -279,17 +279,17 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// let value = [0, 0, 0, 0x01, 0x23, 0x45, 0x67, 0x89];
     /// assert_eq!(
-    ///     CarettaId::from_be_bytes(value)?,
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_be_bytes(value)?,
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Oversized value returns error
     /// let oversized_value = [0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef];
-    /// assert!(CarettaId::from_be_bytes(oversized_value).is_err());
+    /// assert!(GrainId::from_be_bytes(oversized_value).is_err());
     /// # Ok(())
     /// # }
     /// ```
@@ -302,17 +302,17 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// let value = [0x89, 0x67, 0x45, 0x23, 0x01, 0, 0, 0];
     /// assert_eq!(
-    ///     CarettaId::from_le_bytes(value)?,
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_le_bytes(value)?,
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Oversized value returns error
     /// let oversized_value = [0xef, 0xcd, 0xab, 0x89, 0x67, 0x45, 0x23, 0x01];
-    /// assert!(CarettaId::from_le_bytes(oversized_value).is_err());
+    /// assert!(GrainId::from_le_bytes(oversized_value).is_err());
     /// # Ok(())
     /// # }
     /// ```
@@ -325,20 +325,20 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     ///
     /// let value = [0, 0, 0, 0x01, 0x23, 0x45, 0x67, 0x89];
     /// assert_eq!(
-    ///     CarettaId::from_be_bytes_lossy(value),
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_be_bytes_lossy(value),
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Oversized value will be truncated.
     /// let oversized_value = [0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef];
     /// assert_eq!(
-    ///     CarettaId::from_be_bytes_lossy(oversized_value),
-    ///     CarettaId::from_u64(0x789abcdef)?
+    ///     GrainId::from_be_bytes_lossy(oversized_value),
+    ///     GrainId::from_u64(0x789abcdef)?
     /// );
     /// # Ok(())
     /// # }
@@ -351,19 +351,19 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// let value = [0x89, 0x67, 0x45, 0x23, 0x01, 0, 0, 0];
     /// assert_eq!(
-    ///     CarettaId::from_le_bytes_lossy(value),
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_le_bytes_lossy(value),
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Oversized value will be truncated.
     /// let oversized_value = [0xef, 0xcd, 0xab, 0x89, 0x67, 0x45, 0x23, 0x01];
     /// assert_eq!(
-    ///     CarettaId::from_le_bytes_lossy(oversized_value),
-    ///     CarettaId::from_u64(0x789abcdef)?
+    ///     GrainId::from_le_bytes_lossy(oversized_value),
+    ///     GrainId::from_u64(0x789abcdef)?
     /// );
     /// # Ok(())
     /// # }
@@ -377,9 +377,9 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// let bytes = CarettaId::from_u64(0x123456789)?.to_be_bytes_compact();
+    /// let bytes = GrainId::from_u64(0x123456789)?.to_be_bytes_compact();
     /// assert_eq!(bytes, [0x01, 0x23, 0x45, 0x67, 0x89]);
     /// # Ok(())
     /// # }
@@ -394,9 +394,9 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
-    /// let bytes = CarettaId::from_u64(0x123456789)?.to_le_bytes_compact();
+    /// let bytes = GrainId::from_u64(0x123456789)?.to_le_bytes_compact();
     /// assert_eq!(bytes, [0x89, 0x67, 0x45, 0x23, 0x01]);
     /// # Ok(())
     /// # }
@@ -411,17 +411,17 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// let value = [0x01, 0x23, 0x45, 0x67, 0x89];
     /// assert_eq!(
-    ///     CarettaId::from_be_bytes_compact(value)?,
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_be_bytes_compact(value)?,
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Overflowed value returns error.
     /// let oversized_value = [0x12, 0x34, 0x56, 0x78, 0x90];
-    /// assert!(CarettaId::from_be_bytes_compact(oversized_value).is_err());
+    /// assert!(GrainId::from_be_bytes_compact(oversized_value).is_err());
     /// # Ok(())
     /// # }
     /// ```
@@ -434,17 +434,17 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// let value = [0x89, 0x67, 0x45, 0x23, 0x01];
     /// assert_eq!(
-    ///     CarettaId::from_le_bytes_compact(value)?,
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_le_bytes_compact(value)?,
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Oversized value returns error.
     /// let oversized_value = [0x90, 0x78, 0x56, 0x34, 0x12];
-    /// assert!(CarettaId::from_le_bytes_compact(oversized_value).is_err());
+    /// assert!(GrainId::from_le_bytes_compact(oversized_value).is_err());
     /// # Ok(())
     /// # }
     /// ```
@@ -457,19 +457,19 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// let value = [0x01, 0x23, 0x45, 0x67, 0x89];
     /// assert_eq!(
-    ///     CarettaId::from_be_bytes_compact_lossy(value),
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_be_bytes_compact_lossy(value),
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Oversized value will be truncated.
     /// let oversized_value = [0x12, 0x34, 0x56, 0x78, 0x90];
     /// assert_eq!(
-    ///     CarettaId::from_be_bytes_compact_lossy(oversized_value),
-    ///     CarettaId::from_u64(0x234567890)?
+    ///     GrainId::from_be_bytes_compact_lossy(oversized_value),
+    ///     GrainId::from_u64(0x234567890)?
     /// );
     /// # Ok(())
     /// # }
@@ -483,19 +483,19 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// let value = [0x89, 0x67, 0x45, 0x23, 0x01];
     /// assert_eq!(
-    ///     CarettaId::from_le_bytes_compact_lossy(value),
-    ///     CarettaId::from_u64(0x123456789)?
+    ///     GrainId::from_le_bytes_compact_lossy(value),
+    ///     GrainId::from_u64(0x123456789)?
     /// );
     ///
     /// // Oversized value will be truncated
     /// let oversized_value = [0x90, 0x78, 0x56, 0x34, 0x12];
     /// assert_eq!(
-    ///     CarettaId::from_le_bytes_compact_lossy(oversized_value),
-    ///     CarettaId::from_u64(0x234567890)?
+    ///     GrainId::from_le_bytes_compact_lossy(oversized_value),
+    ///     GrainId::from_u64(0x234567890)?
     /// );
     /// # Ok(())
     /// # }
@@ -508,39 +508,39 @@ impl CarettaId {
     ///
     /// # Examples
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// assert_eq!(
-    ///     CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(100)?),
-    ///     CarettaId::NIL
+    ///     GrainId::from_u64(100)?.wrapping_sub(GrainId::from_u64(100)?),
+    ///     GrainId::NIL
     /// );
     /// assert_eq!(
-    ///     CarettaId::from_u64(100)?.wrapping_sub(CarettaId::from_u64(101)?),
-    ///     CarettaId::MAX
+    ///     GrainId::from_u64(100)?.wrapping_sub(GrainId::from_u64(101)?),
+    ///     GrainId::MAX
     /// );
     /// # Ok(())
     /// # }
     /// ```
     pub const fn wrapping_sub(self, rhs: Self) -> Self {
-        CarettaId::from_u64_lossy(self.to_u64().wrapping_sub(rhs.to_u64()))
+        GrainId::from_u64_lossy(self.to_u64().wrapping_sub(rhs.to_u64()))
     }
 
-    /// Increments the value by 1, wrapping around to [`CarettaId::NIL`] on overflow.
+    /// Increments the value by 1, wrapping around to [`GrainId::NIL`] on overflow.
     ///
     /// # Examples
     /// ```
-    /// # use caretta_id::*;
+    /// # use grain_id::*;
     /// # fn main() -> Result<(), Error> {
     /// assert_eq!(
-    ///     CarettaId::from_u64(100)?.increment(),
-    ///     CarettaId::from_u64(101)?
+    ///     GrainId::from_u64(100)?.increment(),
+    ///     GrainId::from_u64(101)?
     /// );
-    /// assert_eq!(CarettaId::MAX.increment(), CarettaId::NIL);
+    /// assert_eq!(GrainId::MAX.increment(), GrainId::NIL);
     /// # Ok(())
     /// # }
     /// ```
     pub const fn increment(self) -> Self {
-        CarettaId::from_u64_lossy(self.to_u64() + 1)
+        GrainId::from_u64_lossy(self.to_u64() + 1)
     }
 }
 
@@ -565,39 +565,39 @@ fn u5s_to_u35_unchecked(value: [u8; 7]) -> u64 {
         | (value[6] as u64)
 }
 
-impl AsRef<u64> for CarettaId {
+impl AsRef<u64> for GrainId {
     fn as_ref(&self) -> &u64 {
         self.as_u64()
     }
 }
 
-impl TryFrom<u64> for CarettaId {
+impl TryFrom<u64> for GrainId {
     type Error = Error;
-    /// Attempts to convert a [`u64`]  to [`CarettaId`].
+    /// Attempts to convert a [`u64`]  to [`GrainId`].
     ///
     /// # Error
-    /// Return error if the value is larger than [`CarettaId::MAX`].
-    /// If you don't need to detect out-of-range values, use [`from_u64_lossy`](CarettaId::from_u64_lossy).
+    /// Return error if the value is larger than [`GrainId::MAX`].
+    /// If you don't need to detect out-of-range values, use [`from_u64_lossy`](GrainId::from_u64_lossy).
     ///
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
-    /// assert!(CarettaId::try_from(CarettaId::CAPACITY - 1).is_ok());
-    /// assert!(CarettaId::try_from(CarettaId::CAPACITY).is_err());
+    /// # use grain_id::*;
+    /// assert!(GrainId::try_from(GrainId::CAPACITY - 1).is_ok());
+    /// assert!(GrainId::try_from(GrainId::CAPACITY).is_err());
     /// ```
     fn try_from(value: u64) -> Result<Self, Self::Error> {
         Self::from_u64(value)
     }
 }
 
-impl From<CarettaId> for u64 {
-    fn from(value: CarettaId) -> Self {
+impl From<GrainId> for u64 {
+    fn from(value: GrainId) -> Self {
         value.0
     }
 }
 
-impl Display for CarettaId {
+impl Display for GrainId {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         let chars = self.to_chars();
         write!(
@@ -608,7 +608,7 @@ impl Display for CarettaId {
     }
 }
 
-impl FromStr for CarettaId {
+impl FromStr for GrainId {
     type Err = Error;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {

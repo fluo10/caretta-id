@@ -4,13 +4,13 @@ use ::rand::{
     distr::{Distribution, StandardUniform},
 };
 
-impl Distribution<CarettaId> for StandardUniform {
-    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> CarettaId {
-        <CarettaId>::from_u64_lossy(rng.random())
+impl Distribution<GrainId> for StandardUniform {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> GrainId {
+        <GrainId>::from_u64_lossy(rng.random())
     }
 }
-impl CarettaId {
-    /// Generate a new random [`CarettaId`].
+impl GrainId {
+    /// Generate a new random [`GrainId`].
     ///
     /// This method generate a random ID.
     /// The generated ID is guaranteed to not be the [`NIL`](Self::NIL) value.
@@ -18,11 +18,11 @@ impl CarettaId {
     /// # Examples
     ///
     /// ```
-    /// # use caretta_id::*;
-    /// let id = CarettaId::random();
-    /// assert_ne!(id, CarettaId::NIL);
+    /// # use grain_id::*;
+    /// let id = GrainId::random();
+    /// assert_ne!(id, GrainId::NIL);
     /// ```
     pub fn random() -> Self {
-        <CarettaId>::from_u64_lossy(::rand::random())
+        <GrainId>::from_u64_lossy(::rand::random())
     }
 }

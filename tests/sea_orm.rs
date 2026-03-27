@@ -1,6 +1,6 @@
 #![cfg(feature = "sea-orm")]
 
-use caretta_id::CarettaId;
+use grain_id::GrainId;
 use rand::RngExt as _;
 use sea_orm::{
     DatabaseBackend, MockDatabase, MockExecResult, Transaction,
@@ -8,11 +8,11 @@ use sea_orm::{
 };
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
-#[sea_orm(table_name = "caretta_id")]
+#[sea_orm(table_name = "grain_id")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    pub id: CarettaId,
-    pub value: CarettaId,
+    pub id: GrainId,
+    pub value: GrainId,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -38,17 +38,17 @@ async fn assert_model(model: Model) {
         [
             Transaction::from_sql_and_values(
                 DatabaseBackend::Sqlite,
-                r#"INSERT INTO "caretta_id" ("id", "value") VALUES (?, ?)"#,
+                r#"INSERT INTO "grain_id" ("id", "value") VALUES (?, ?)"#,
                 [model.id.into(), model.value.into(),]
             ),
             Transaction::from_sql_and_values(
                 DatabaseBackend::Sqlite,
-                r#"SELECT "caretta_id"."id", "caretta_id"."value" FROM "caretta_id" WHERE "caretta_id"."id" = ? LIMIT ?"#,
+                r#"SELECT "grain_id"."id", "grain_id"."value" FROM "grain_id" WHERE "grain_id"."id" = ? LIMIT ?"#,
                 [model.id.into(), 1u64.into()]
             ),
             Transaction::from_sql_and_values(
                 DatabaseBackend::Sqlite,
-                r#"SELECT "caretta_id"."id", "caretta_id"."value" FROM "caretta_id" LIMIT ?"#,
+                r#"SELECT "grain_id"."id", "grain_id"."value" FROM "grain_id" LIMIT ?"#,
                 [1u64.into()]
             )
         ]
@@ -58,8 +58,8 @@ async fn assert_model(model: Model) {
 #[tokio::test]
 async fn nil() {
     assert_model(Model {
-        id: CarettaId::NIL,
-        value: CarettaId::NIL,
+        id: GrainId::NIL,
+        value: GrainId::NIL,
     })
     .await;
 }
@@ -67,8 +67,8 @@ async fn nil() {
 #[tokio::test]
 async fn max() {
     assert_model(Model {
-        id: CarettaId::MAX,
-        value: CarettaId::MAX,
+        id: GrainId::MAX,
+        value: GrainId::MAX,
     })
     .await;
 }
