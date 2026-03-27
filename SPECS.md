@@ -1,8 +1,8 @@
-# caretta-id Specification
+# grain-id Specification
 
 ## Overview
 
-caretta-id is a human-friendly unique identifier format designed for readability, memorability, and compactness. It encodes integer values into a 7-character string using a custom BASE32 encoding. caretta-id is suitable for use in distributed systems, logging, URLs, and other contexts where short, unique identifiers are beneficial.
+grain-id is a human-friendly unique identifier format designed for readability, memorability, and compactness. It encodes integer values into a 7-character string using a custom BASE32 encoding. grain-id is suitable for use in distributed systems, logging, URLs, and other contexts where short, unique identifiers are beneficial.
 
 ### Motivation
 
@@ -16,7 +16,7 @@ So I decided to make my own ID specification.
 
 ## Structure
 
-A caretta-id consists of exactly 7 characters encoded with a custom BASE32 alphabet.
+A grain-id consists of exactly 7 characters encoded with a custom BASE32 alphabet.
 
 ### Format
 
@@ -39,7 +39,7 @@ A caretta-id consists of exactly 7 characters encoded with a custom BASE32 alpha
 
 ## Encoding/Decoding
 
-caretta-id uses a custom BASE32 encoding/decoding to convert integer values into/from character strings.
+grain-id uses a custom BASE32 encoding/decoding to convert integer values into/from character strings.
 
 ### Alphabet
 
@@ -102,7 +102,7 @@ caretta-id uses a custom BASE32 encoding/decoding to convert integer values into
 
 ## Examples
 
-| Integer         | caretta-id  |
+| Integer         | grain-id  |
 |----------------:|:-----------:|
 |             `0` | `0000000`   |
 |           `255` | `000007z`   |
@@ -110,11 +110,11 @@ caretta-id uses a custom BASE32 encoding/decoding to convert integer values into
 
 ## Implementation Notes
 
-- caretta-id is language-agnostic and can be implemented in any language with integer and string manipulation capabilities.
-- The Rust implementation provides a `CarettaId` struct backed by a `u64` with common conversion traits.
+- grain-id is language-agnostic and can be implemented in any language with integer and string manipulation capabilities.
+- The Rust implementation provides a `GrainId` struct backed by a `u64` with common conversion traits.
 - Parsing and formatting functions should validate character set and string length.
 - Lossy conversion from oversized integers is allowed. In this case, higher bits are discarded (modulo 2^35).
 
 ## License
 
-This specification is open and free to use under the same license as the caretta-id reference implementation.
+This specification is open and free to use under the same license as the grain-id reference implementation.

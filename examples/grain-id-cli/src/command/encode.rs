@@ -1,7 +1,7 @@
-use caretta_id::CarettaId;
+use grain_id::GrainId;
 use clap::Args;
 
-/// Encode integer to caretta-id string.
+/// Encode integer to grain-id string.
 #[derive(Args, Debug)]
 pub struct EncodeArgs {
     value: u64,
@@ -9,6 +9,6 @@ pub struct EncodeArgs {
 
 impl EncodeArgs {
     pub fn run(self) {
-        println!("{}", CarettaId::from_u64_lossy(self.value))
+        println!("{}", GrainId::from_u64_lossy(self.value))
     }
 }

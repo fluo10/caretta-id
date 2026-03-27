@@ -1,3 +1,3 @@
 //! Provides protobuf messages.
 
-include!(concat!(env!("OUT_DIR"), "/caretta_id.rs"));
+include!(concat!(env!("OUT_DIR"), "/grain_id.rs"));

@@ -1,5 +1,5 @@
 [package]
-name = "caretta-id-fuzz"
+name = "grain-id-fuzz"
 version = "0.0.0"
 publish = false
 edition = "2024"
@@ -8,59 +8,13 @@ edition = "2024"
 cargo-fuzz = true
 
 [features]
-arbitrary = ["caretta-id/arbitrary"]
+arbitrary = ["grain-id/arbitrary"]
 
 [dependencies]
 libfuzzer-sys = "0.4"
 
-[dependencies.caretta-id]
+[dependencies.grain-id]
 path = ".."
-
-[[bin]]
-name = "arbitrary_single"
-path = "fuzz_targets/arbitrary_single.rs"
-test = false
-doc = false
-bench = false
-required-features = ["arbitrary"]
-
-[[bin]]
-name = "arbitrary_double"
-path = "fuzz_targets/arbitrary_double.rs"
-test = false
-doc = false
-bench = false
-required-features = ["arbitrary"]
-
-[[bin]]
-name = "arbitrary_triple"
-path = "fuzz_targets/arbitrary_triple.rs"
-test = false
-doc = false
-bench = false
-required-features = ["arbitrary"]
-
-[[bin]]
-name = "arbitrary_quadruple"
-path = "fuzz_targets/arbitrary_quadruple.rs"
-test = false
-doc = false
-bench = false
-required-features = ["arbitrary"]
-
-[[bin]]
-name = "parse_int"
-path = "fuzz_targets/parse_int.rs"
-test = false
-doc = false
-bench = false
-
-[[bin]]
-name = "parse_str"
-path = "fuzz_targets/parse_str.rs"
-test = false
-doc = false
-bench = false
 
 [workspace]
 members = ["."]

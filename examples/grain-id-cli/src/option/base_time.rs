@@ -3,7 +3,7 @@ use clap::Args;
 
 /// Base timestamp options
 ///
-/// Specify what timestamp will be used to calculate time-based CarettaId.
+/// Specify what timestamp will be used to calculate time-based GrainId.
 #[derive(Args, Debug)]
 #[command(next_help_heading = "Base time options", about = None, long_about = None)]
 #[group(multiple = false, required = true)]

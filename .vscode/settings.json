@@ -2,7 +2,7 @@
     "rust-analyzer.cargo.features": "all",
     "protoc": {
         "options": [
-            "--proto_path=${workspaceRoot}/caretta-id-proto",
+            "--proto_path=${workspaceRoot}/grain-id-proto",
         ]
     }
 }

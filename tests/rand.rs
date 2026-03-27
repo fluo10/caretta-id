@@ -1,22 +1,22 @@
 #![cfg(feature = "rand")]
 mod common;
-use caretta_id::*;
+use grain_id::*;
 use common::*;
 
 #[test]
 fn random() {
     for _ in 0..10 {
-        let id: CarettaId = rand::random();
-        assert!(<CarettaId>::NIL < id);
-        assert!(<CarettaId>::MAX >= id);
+        let id: GrainId = rand::random();
+        assert!(<GrainId>::NIL < id);
+        assert!(<GrainId>::MAX >= id);
     }
 }
 
 #[test]
 fn random_int() {
     for _ in 0..10 {
-        let value: u64 = rand::random_range(1..=<CarettaId>::MAX.to_u64());
-        let id = <CarettaId>::try_from(value).unwrap();
+        let value: u64 = rand::random_range(1..=<GrainId>::MAX.to_u64());
+        let id = <GrainId>::try_from(value).unwrap();
         assert_conversion(id);
     }
 }
@@ -34,7 +34,7 @@ fn random_str() {
             buf[i] = c;
         }
         let s: String = buf.into_iter().collect();
-        let id = (&s).parse::<CarettaId>().unwrap();
+        let id = (&s).parse::<GrainId>().unwrap();
         assert_conversion(id);
     }
 }
@@ -43,7 +43,7 @@ fn random_str() {
 #[cfg(feature = "rand")]
 fn oversized_random_int() {
     for _ in 0..10 {
-        let value: u64 = rand::random_range((<CarettaId>::MAX.to_u64() + 1)..<u64>::MAX);
-        let _ = <CarettaId>::try_from(value).unwrap_err();
+        let value: u64 = rand::random_range((<GrainId>::MAX.to_u64() + 1)..<u64>::MAX);
+        let _ = <GrainId>::try_from(value).unwrap_err();
     }
 }
