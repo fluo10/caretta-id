@@ -4,7 +4,7 @@ use std::process::Command;
 use grain_id::GrainId;
 
 fn assert_decode(id: GrainId) {
-    let path = PathBuf::from(std::env!("CARGO_BIN_EXE_grain-id-cli"));
+    let path = PathBuf::from(std::env!("CARGO_BIN_EXE_grain-id"));
     let output = Command::new(path)
         .arg("decode")
         .arg(&id.to_string())
