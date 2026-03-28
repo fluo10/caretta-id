@@ -118,6 +118,9 @@ mod arbitrary;
 #[cfg(feature = "schemars")]
 mod schemars;
 
+#[cfg(feature = "digest")]
+mod digest;
+
 #[cfg(feature = "rand")]
 mod rand;
 
