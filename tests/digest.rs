@@ -58,7 +58,7 @@ fn from_digest_valid_range() {
 
 #[test]
 fn from_xof_deterministic() {
-    use sha3::Shake128;
+    use shake::Shake128;
     let id1 = GrainId::from_xof::<Shake128>(b"grain-id");
     let id2 = GrainId::from_xof::<Shake128>(b"grain-id");
     assert_eq!(id1, id2);
@@ -66,7 +66,7 @@ fn from_xof_deterministic() {
 
 #[test]
 fn from_xof_distinct_inputs_differ() {
-    use sha3::Shake256;
+    use shake::Shake256;
     let id1 = GrainId::from_xof::<Shake256>(b"hello");
     let id2 = GrainId::from_xof::<Shake256>(b"world");
     assert_ne!(id1, id2);
@@ -74,7 +74,7 @@ fn from_xof_distinct_inputs_differ() {
 
 #[test]
 fn from_xof_valid_range() {
-    use sha3::Shake128;
+    use shake::Shake128;
     let id = GrainId::from_xof::<Shake128>(b"hello");
     assert!(id <= GrainId::MAX);
     assert_conversion(id);
@@ -82,7 +82,7 @@ fn from_xof_valid_range() {
 
 #[test]
 fn from_xof_empty_input() {
-    use sha3::Shake256;
+    use shake::Shake256;
     let id = GrainId::from_xof::<Shake256>(b"");
     assert!(id <= GrainId::MAX);
     assert_conversion(id);
