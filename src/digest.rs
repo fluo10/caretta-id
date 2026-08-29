@@ -42,7 +42,7 @@ impl GrainId {
     ///
     /// ```rust
     /// # use grain_id::*;
-    /// use sha3::Shake128;
+    /// use shake::Shake128;
     ///
     /// let id = GrainId::from_xof::<Shake128>(b"hello world");
     /// // Deterministic: same input always yields same ID.

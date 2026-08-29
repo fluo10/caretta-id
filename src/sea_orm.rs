@@ -43,7 +43,7 @@ impl TryFromU64 for GrainId {
         Self::try_from(n).map_err(|x| sea_orm::DbErr::TryIntoErr {
             from: stringify!(u64),
             into: stringify!(GrainId),
-            source: Box::new(x) as Box<dyn std::error::Error + Send + Sync>,
+            source: std::sync::Arc::new(x) as std::sync::Arc<dyn std::error::Error + Send + Sync>,
         })
     }
 }
