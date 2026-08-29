@@ -53,6 +53,9 @@ sha3.workspace = true
 shake.workspace = true
 jsonschema = "0.52"
 serde_json = "1.0"
+# Only so `cargo test --all-features` can link the `rusqlite` integration without
+# a system SQLite. Dev-only: it is not part of the published dependency graph.
+libsqlite3-sys = { version = "0.38", features = ["bundled"] }
 
 [workspace]
 members = [".", "examples/grain-id-cli", "examples/grain-id-prost-example"]

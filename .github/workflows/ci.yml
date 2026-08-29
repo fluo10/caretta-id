@@ -18,7 +18,7 @@ jobs:
       - name: Install Protoc
         uses: arduino/setup-protoc@v3
       - name: Run clippy
-        run: cargo clippy --workspace
+        run: cargo clippy --workspace --all-features --all-targets
   test:
     strategy:
       matrix:
@@ -33,4 +33,4 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: Swatinem/rust-cache@v2
-      - run: cargo test --workspace
+      - run: cargo test --workspace --all-features
