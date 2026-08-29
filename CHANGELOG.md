@@ -5,6 +5,18 @@ All notable changes to this workspace will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.16.0](https://github.com/fluo10/grain-id/compare/v0.15.0...v0.16.0) - 2026-08-29
+
+### Other
+
+- test and lint with --all-features
+- *(deps)* [**breaking**] update rusqlite to 0.40, sea-orm to 2.0, sha3 to 0.12
+- bump actions/checkout from 6 to 7
+- add cargo-deny for license and advisory checks
+- add RELEASING.md describing release-plz flow and -sys policy
+- *(release)* introduce release-plz for version bumps and crates.io publishing
+- *(deps)* Bump softprops/action-gh-release from 2 to 3
+
 ## 0.15.0 - 2026-04-14
 
 ### Added
